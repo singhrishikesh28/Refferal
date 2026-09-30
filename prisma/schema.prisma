@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum ReferralStatus {
+  pending
+  success
+  failure
+}
+
+model Referral {
+  referralName     String         @map("referral_name")
+  graduationDate   String         @map("graduation_date") @db.Text
+  referralEmail    String         @id @map("referral_email")
+  jobId            String?        @map("job_id")
+  referralRole     String         @map("referral_role")
+  referralRoleType String?        @map("referral_role_type")
+  relationship     String
+  recommendation   String
+  resumeFilename   String         @map("resume_filename")
+  resumeMimeType   String         @map("resume_mime_type")
+  resumeBase64     String         @map("resume_base64") @db.Text
+  status           ReferralStatus @default(pending)
+  statusMessage    String?        @map("status_message")
+  createdAt        DateTime       @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@map("referrals")
+}

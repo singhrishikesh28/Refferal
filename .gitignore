@@ -1,0 +1,6 @@
+node_modules/
+.next/
+data/
+generated/
+.env*
+!.env.example
